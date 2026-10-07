@@ -1,5 +1,8 @@
 from flask import Flask
 from flask import render_template as rt
+import requests, json, warnings
+response = requests.get("https://api.openbrewerydb.org/v1/breweries")
+data = json.loads(response.content)
 app = Flask(__name__)
 
 @app.route("/")
@@ -9,7 +12,7 @@ def home():
 
 @app.route("/breweries")
 def brewries():
-    return rt("breweries.html", user =" Barsha Poudel")
+    return rt("breweries.html", content = data)
 
 @app.route("/beer_types")
 def beer_types():
